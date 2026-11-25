@@ -56,7 +56,20 @@ class APIHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
 
-        if self.path == "/":
+        # Liveness health check
+        if self.path == "/health":
+
+            body = '{"status": "healthy"}'
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body.encode())))
+            self.end_headers()
+
+            self.wfile.write(body.encode())
+
+        # Home endpoint
+        elif self.path == "/":
 
             body = MESSAGE
 
@@ -67,6 +80,7 @@ class APIHandler(BaseHTTPRequestHandler):
 
             self.wfile.write(body.encode())
 
+        # Database endpoint
         elif self.path == "/db":
 
             try:
@@ -102,6 +116,7 @@ class APIHandler(BaseHTTPRequestHandler):
 
             self.wfile.write(body.encode())
 
+        # Unknown endpoint
         else:
 
             body = "Not Found"
