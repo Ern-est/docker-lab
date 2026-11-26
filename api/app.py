@@ -132,11 +132,16 @@ class APIHandler(BaseHTTPRequestHandler):
         print(f"{self.address_string()} - {format % args}")
 
 
-initialize_database()
+def main():
+    initialize_database()
 
-server = HTTPServer((HOST, PORT), APIHandler)
+    server = HTTPServer((HOST, PORT), APIHandler)
 
-print(f"API listening on {HOST}:{PORT}")
-print(f"Database host: {DB_HOST}:{DB_PORT}")
+    print(f"API listening on {HOST}:{PORT}")
+    print(f"Database host: {DB_HOST}:{DB_PORT}")
 
-server.serve_forever()
+    server.serve_forever()
+
+
+if __name__ == "__main__":
+    main()
