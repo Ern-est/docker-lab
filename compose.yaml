@@ -12,8 +12,7 @@ services:
       - api
 
   api:
-    build:
-      context: ./api
+    image: anestdev/docker-lab-api:latest
     container_name: compose-api
     environment:
       MESSAGE: "Hello from our Docker API! 🚀"
